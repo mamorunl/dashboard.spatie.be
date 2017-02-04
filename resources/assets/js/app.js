@@ -7,7 +7,9 @@ import LastFm from './components/last-fm';
 import moment from 'moment';
 import PackagistStatistics from './components/packagist-statistics';
 import RainForecast from './components/rain-forecast';
+import Cleaning from './components/cleaning';
 import Vue from 'vue';
+import Trello from './components/trello';
 
 moment.locale('en', {
     calendar: {
@@ -28,10 +30,12 @@ new Vue({
         CurrentTime,
         GithubFile,
         GoogleCalendar,
+        Cleaning,
         InternetConnection,
         LastFm,
         PackagistStatistics,
         RainForecast,
+        Trello
     },
 
 });

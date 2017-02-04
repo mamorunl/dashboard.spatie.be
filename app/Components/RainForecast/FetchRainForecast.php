@@ -30,8 +30,8 @@ class FetchRainForecast extends Command
      */
     public function handle()
     {
-        $lat = 51.2194;
-        $lng = 4.4025;
+        $lat = 53.2193840;
+        $lng = 6.5665020;
 
         $responseBody = (string) (new Client())
                 ->get("http://gps.buienradar.nl/getrr.php?lat={$lat}&lon={$lng}")

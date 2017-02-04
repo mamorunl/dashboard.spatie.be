@@ -162,6 +162,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         \App\Providers\CollectionServiceProvider::class,
         \Spatie\BladeJavaScript\BladeJavaScriptServiceProvider::class,
+        Gregoriohc\LaravelTrello\TrelloServiceProvider::class,
     ],
 
     /*

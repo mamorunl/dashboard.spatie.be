@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Components\GitHub\FetchGitHubFileContent::class,
+        \App\Components\Trello\FetchTrelloFileContent::class,
         \App\Components\GoogleCalendar\FetchGoogleCalendarEvents::class,
         \App\Components\LastFm\FetchCurrentTrack::class,
         \App\Components\Packagist\FetchTotals::class,
@@ -29,10 +30,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('dashboard:lastfm')->everyMinute();
-        $schedule->command('dashboard:calendar')->everyFiveMinutes();
+        $schedule->command('dashboard:calendar')->hourly();
         $schedule->command('dashboard:github')->everyFiveMinutes();
         $schedule->command('dashboard:heartbeat')->everyMinute();
         $schedule->command('dashboard:packagist')->hourly();
         $schedule->command('dashboard:rain')->everyMinute();
+        $schedule->command('dashboard:trello')->everyThirtyMinutes();
     }
 }
