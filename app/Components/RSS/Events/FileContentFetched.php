@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Components\Trello\Events;
+namespace App\Components\RSS\Events;
 
 use App\Components\DashboardEvent;
 
 class FileContentFetched extends DashboardEvent
 {
-    /** @var string */
-    public $fileContent;
+    /** @var array */
+    public $items;
 
-    public function __construct(string $fileContent)
+    public function __construct(array $items)
     {
-        $this->fileContent = $fileContent;
+        $this->items = $items;
     }
 }

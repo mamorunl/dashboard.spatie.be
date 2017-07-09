@@ -19,7 +19,8 @@
         "pda/pheanstalk": "^3.1",
         "guzzlehttp/guzzle": "^6.2",
         "spatie/laravel-blade-javascript": "^1.0",
-        "gregoriohc/laravel-trello": "^0.2.0"
+        "gregoriohc/laravel-trello": "^0.2.0",
+        "willvincent/feeds": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

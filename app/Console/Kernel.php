@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Components\Nest\ReloadNestStatus;
+use App\Components\RSS\FetchRSSFileContent;
+use App\Components\Wunderground\FetchLocalWeather;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -20,6 +23,9 @@ class Kernel extends ConsoleKernel
         \App\Components\Packagist\FetchTotals::class,
         \App\Components\InternetConnectionStatus\SendHeartbeat::class,
         \App\Components\RainForecast\FetchRainForecast::class,
+        FetchRSSFileContent::class,
+        ReloadNestStatus::class,
+        FetchLocalWeather::class
     ];
 
     /**
@@ -30,11 +36,18 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('dashboard:lastfm')->everyMinute();
-        $schedule->command('dashboard:calendar')->hourly();
-        $schedule->command('dashboard:github')->everyFiveMinutes();
         $schedule->command('dashboard:heartbeat')->everyMinute();
-        $schedule->command('dashboard:packagist')->hourly();
         $schedule->command('dashboard:rain')->everyMinute();
+        
+        $schedule->command('dashboard:github')->everyFiveMinutes();
+        
+        $schedule->command('dashboard:nest')->everyTenMinutes();
+        
         $schedule->command('dashboard:trello')->everyThirtyMinutes();
+        $schedule->command('dashboard:rss')->everyThirtyMinutes();
+        
+        $schedule->command('dashboard:calendar')->hourly();
+        $schedule->command('dashboard:packagist')->hourly();
+        $schedule->command('dashboard:wunderground')->hourly();
     }
 }

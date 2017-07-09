@@ -8,7 +8,14 @@
 namespace App\Components\Wunderground\Events;
 
 
-class DataFetched
+use App\Components\DashboardEvent;
+
+class DataFetched extends DashboardEvent
 {
+    public $wunderground;
     
+    public function __construct($wunderground)
+    {
+        $this->wunderground = $wunderground;
+    }
 }

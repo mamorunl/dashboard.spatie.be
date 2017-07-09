@@ -163,6 +163,8 @@ return [
         \App\Providers\CollectionServiceProvider::class,
         \Spatie\BladeJavaScript\BladeJavaScriptServiceProvider::class,
         Gregoriohc\LaravelTrello\TrelloServiceProvider::class,
+        
+        \willvincent\Feeds\FeedsServiceProvider::class
     ],
 
     /*
@@ -210,6 +212,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'GoogleCalendar' => Spatie\GoogleCalendar\GoogleCalendarFacade::class,
         'GitHub' => GrahamCampbell\GitHub\Facades\GitHub::class,
+        'Feeds' => \willvincent\Feeds\Facades\FeedsFacade::class
     ],
 
 ];

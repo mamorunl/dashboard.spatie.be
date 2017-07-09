@@ -16,6 +16,6 @@ class ReadNest extends DashboardEvent
     
     public function __construct()
     {
-        $this->data = json_decode(file_get_contents(storage_path() . '/app/nest_session_info'));
+        $this->data = array_values(json_decode(file_get_contents(storage_path() . '/app/nest_session_info'), true))[0];
     }
 }

@@ -16,6 +16,7 @@
     }
 
     background-color: color($blue, light, .25);
+    padding: 0 !important;
 }
 
 .rain-forecast__background {
@@ -38,4 +39,26 @@
 
 .rain-forecast__title {
     z-index: 3;
+    float: left;
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+.rain-forecast__extra {
+    float: right;
+    border-left: 1px solid rgba(255, 255, 255, .6);
+    height: 100%;
+    opacity: .4;
+
+    .rain-forecast__extra-block {
+        font-size: 24px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, .6);
+        padding: .65vh;
+
+        small {
+            display: block;
+            font-size: .5em;
+        }
+    }
 }

@@ -2,10 +2,13 @@
 
 namespace App\Components\RSS;
 
-use App\Components\Trello\Events\FileContentFetched;
+use App\Components\RefreshRSSEvent;
+use App\Components\RSS\Events\FileContentFetched;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
+use willvincent\Feeds\Facades\FeedsFacade;
 
-class FetchTrelloFileContent extends Command
+class FetchRSSFileContent extends Command
 {
     /**
      * The console command name.
@@ -28,15 +31,18 @@ class FetchTrelloFileContent extends Command
      */
     public function handle()
     {
-        $trello = "";
-        $cards = \Gregoriohc\LaravelTrello\Facades\Wrapper::boards()->cards()->all(env('TRELLO_BOARD_ID'), []);
+        $feed = FeedsFacade::make('http://feeds.nos.nl/nosnieuwsalgemeen');
         
-        foreach ($cards as $card) {
-            $list = \Gregoriohc\LaravelTrello\Facades\Wrapper::lists()->show($card['idList']);
-        
-            $trello .= "[" . $list['name'] . "] " . $card['name'] . "<br>";
-        }
+        $rss_items = collect($feed->get_items())
+            ->map(function($item) {
+                return [
+                    'title' => $item->get_title(),
+                    'intro' => Str::words(strip_tags($item->get_description()), 35)
+                ];
+            })
+            ->toArray();
 
-        event(new FileContentFetched($trello));
+        event(new FileContentFetched(array_slice($rss_items, 0, 5)));
+        event(new RefreshRSSEvent());
     }
 }

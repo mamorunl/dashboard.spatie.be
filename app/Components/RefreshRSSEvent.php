@@ -4,7 +4,7 @@ namespace App\Components;
 
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-abstract class DashboardEvent implements ShouldBroadcast
+class RefreshRSSEvent implements ShouldBroadcast
 {
     /**
      * Get the channels the event should broadcast on.
@@ -13,6 +13,6 @@ abstract class DashboardEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['private-dashboard'];
+        return ['rss-dashboard'];
     }
 }

@@ -10,6 +10,8 @@ import RainForecast from './components/rain-forecast';
 import Cleaning from './components/cleaning';
 import Vue from 'vue';
 import Trello from './components/trello';
+import Rss from './components/rss';
+import Nest from './components/nest';
 
 moment.locale('en', {
     calendar: {
@@ -35,9 +37,9 @@ new Vue({
         LastFm,
         PackagistStatistics,
         RainForecast,
-        Trello
+        Trello,
+        Rss,
+        Nest
     },
 
 });
-
-

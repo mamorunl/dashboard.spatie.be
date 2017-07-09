@@ -1,28 +1,27 @@
 <?php
 
-namespace App\Components\GoogleCalendar;
+namespace App\Components\Nest;
 
-use App\Components\GoogleCalendar\Events\EventsFetched;
-use Carbon\Carbon;
-use DateTime;
+use App\Components\Nest\Events\ReadNest;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Console\Command;
-use Spatie\GoogleCalendar\Event;
 
-class FetchGoogleCalendarEvents extends Command
+class ReloadNestStatus extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $signature = 'dashboard:calendar';
+    protected $signature = 'dashboard:nest';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Fetch Google Calendar events.';
+    protected $description = 'Reload Nest.';
 
     /**
      * Execute the console command.
@@ -31,20 +30,36 @@ class FetchGoogleCalendarEvents extends Command
      */
     public function handle()
     {
-        $events = collect(Event::get())
-            ->filter(function (Event $event) {
-                return $event->name != 'Poetsvrouwman';
-            })->map(function (Event $event) {
-                return [
-                    'name' => $event->name,
-                    'date' => Carbon::createFromFormat('Y-m-d H:i:s', $event->getSortDate())->format(DateTime::ATOM),
-                    'time' => Carbon::createFromFormat('Y-m-d H:i:s', $event->getSortDate())->format('H:i')
-                ];
-            })
-            ->unique('name')
-            ->toArray();
+        $client = new Client;
         
-
-        event(new EventsFetched(array_slice($events, 0, 25)));
+        $access_token = file_get_contents(storage_path() . '/app/nest_session_token');
+    
+        try {
+            $response = $client->request('GET', 'https://developer-api.nest.com/devices/thermostats?auth=' . $access_token, [
+//                'headers' => [
+//                    'Content-Type'  => 'application/json',
+//                    'Authorization' => 'Bearer ' . $access_token
+//                ]
+            ]);
+        
+            $response_data = $response->getBody()
+                ->getContents();
+        
+            file_put_contents(storage_path() . '/app/nest_session_info', $response_data);
+        
+            //return redirect('/nest/temperature');
+        } catch (ClientException $e) {
+            echo "<h1>ERROR ";
+            echo $e->getCode();
+            echo "</h1><pre>";
+            echo $e->getMessage();
+            echo $access_token;
+            echo "</pre>";
+            echo $e->getResponse()
+                ->getBody()
+                ->getContents();
+        }
+        
+        event(new ReadNest);
     }
 }

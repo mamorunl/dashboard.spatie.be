@@ -38,11 +38,13 @@ class FetchGoogleCalendarEvents extends Command
                 return [
                     'name' => $event->name,
                     'date' => Carbon::createFromFormat('Y-m-d H:i:s', $event->getSortDate())->format(DateTime::ATOM),
+                    'time' => Carbon::createFromFormat('Y-m-d H:i:s', $event->getSortDate())->format('H:i')
                 ];
             })
             ->unique('name')
             ->toArray();
+        
 
-        event(new EventsFetched($events));
+        event(new EventsFetched(array_slice($events, 0, 25)));
     }
 }

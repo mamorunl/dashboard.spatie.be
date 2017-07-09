@@ -20,7 +20,14 @@ export default {
                       line-color="rgba(19,134,158, .5)"
                       background-color="rgba(19,134,158, .25)"
                     ></graph>
-                </div>                    
+                </div>     
+                <div class="rain-forecast__extra">
+                    <div class="rain-forecast__extra-block">{{ wunderground.max_temp }}<sup>c</sup> <small>Max Temp</small></div>                    
+                    <div class="rain-forecast__extra-block">{{ wunderground.max_rain }}% <small>Rain</small></div>                    
+                    <div class="rain-forecast__extra-block">{{ wunderground.max_snow }}mm <small>Snow</small></div>                   
+                    <div class="rain-forecast__extra-block">{{{ getWeatherAt9() }}} <small>@ 09:00</small></div>                   
+                    <div class="rain-forecast__extra-block">{{{ getWeatherAt17() }}} <small>@ 17:00</small></div>                   
+                </div>
             </section>
         </grid>
     `,
@@ -64,6 +71,8 @@ export default {
         return {
             forecast: [
             ],
+            wunderground: [
+            ]
         };
     },
 
@@ -73,6 +82,9 @@ export default {
                 'App\\Components\\RainForecast\\Events\\ForecastFetched': response => {
                     this.forecast = response.forecast;
                 },
+                'App\\Components\\Wunderground\\Events\\DataFetched': response => {
+                    this.wunderground = response.wunderground
+                }
             };
         },
 
@@ -95,5 +107,17 @@ export default {
 
             return foreCastItemWithNoRain.length == 0;
         },
+
+        getWeatherAt9() {
+            return this.getWeatherAt(this.wunderground.data_9);
+        },
+
+        getWeatherAt17() {
+            return this.getWeatherAt(this.wunderground.data_17);
+        },
+
+        getWeatherAt(array_fields) {
+            return array_fields['temperature'] + "<sup>c</sup>/" + array_fields['rain'] + "%" + (array_fields['day'] > array_fields['cur_day'] ? " &tau;" : "");
+        }
     },
 };

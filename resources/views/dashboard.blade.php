@@ -4,7 +4,7 @@
 
     @javascript(compact('pusherKey'))
 
-    <current-time grid="a1" dateformat="ddd DD/MM"></current-time>
+    <current-time grid="d1" dateformat="ddd DD/MM"></current-time>
 
     <google-calendar grid="d2:d3"></google-calendar>
 
@@ -12,14 +12,14 @@
 
     <trello grid="a2:a3"></trello>
 
-    <packagist-statistics grid="b3"></packagist-statistics>
-
     <rain-forecast grid="c2"></rain-forecast>
 
     <internet-connection grid="b2"></internet-connection>
 
-    <github-file file-name="l5-rss" grid="c3"></github-file>
+    <rss grid="b3:c3"></rss>
 
-    <cleaning grid="d1"></cleaning>
+    <nest grid="a1"></nest>
+
+    <audio src="http://stream.radiocontinu.nl/radiocontinu" autoplay="true"></audio>
 
 @endsection
