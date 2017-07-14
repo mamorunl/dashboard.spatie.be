@@ -79,8 +79,8 @@ class FetchLocalWeather extends Command
             ];
         }
         
-        $data_9 = $carbon_now->hour > 9 ? $hour_array[$carbon_now->day + 1][9] : $hour_array[$carbon_now->day][9];
-        $data_17 = $carbon_now->hour > 17 ? $hour_array[$carbon_now->day + 1][17] : $hour_array[$carbon_now->day][17];
+        $data_9 = $carbon_now->hour >= 9 ? $hour_array[$carbon_now->day + 1][9] : $hour_array[$carbon_now->day][9];
+        $data_17 = $carbon_now->hour >= 17 ? $hour_array[$carbon_now->day + 1][17] : $hour_array[$carbon_now->day][17];
         
         $data = [
             'max_temp' => $variables['max_temp'],
